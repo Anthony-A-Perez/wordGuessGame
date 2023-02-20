@@ -30,13 +30,14 @@ const questions = [
 ];
 
 let trueStatements = [questions[0],questions[2],questions[3],questions[4],questions[6]];
-
-//const trueStatements = (questions[0][2][3][4][6]);
+let falseStatements = [questions[1],questions[5],questions[7],questions[8],questions[9]];
+let statementValueTrue = trueStatements == "0";
+let statementValueFalse = falseStatements == "1";
 const winText = "Correct, be wary of success.";
 const loseText = "Incorrect, you're perfectly flawed.";
 
 // get referenced elements
-
+var answer = "0"
 var trueButton = document.getElementById("true-button");
 var falseButton = document.getElementById("false-button");
 var answerButton = document.querySelector(".answer-button");
@@ -55,22 +56,26 @@ let totalQuestions = questions.length;
 let randIndex = Math.floor(rand * totalQuestions);
 let randomQuestion = questions[randIndex]
 statement.innerText = randomQuestion;
+//result.style.display = "none";
 
 };
 
-const trueClick = document.getElementById("true-button");
-
-function compareTrue() {
-  if (questions[0] == trueClick) {
-    result.innerText = winText
-  
-  }
-
-};
+answerButton.addEventListener("click", event => {
+    if (event.target.value == answer) {
+        result.innerText = winText;
+    } else {
+        result.innerText =loseText;
+    }
+});
 
 
-startButton.addEventListener("click", getStatement, compareTrue);
 
 
-trueButton.addEventListener("click", compareTrue)
-  
+
+
+
+startButton.addEventListener("click", getStatement);
+
+
+
+

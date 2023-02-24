@@ -83,13 +83,16 @@ const loseText = "Incorrect, you're perfectly flawed.";
 // compares value of statement with vale of click event
 
 answerButton.addEventListener("click", event => {
-console.log(event.target.value);
-    if (event.target.value === questions.value) {
-        result.innerText = winText;
+    event.preventDefault();
+    if (event.target.value == 0) {
+        result.innerHTML = winText;
     } else {
-        result.innerText = loseText;
+        result.innerHTML = loseText;
     }
+    console.log(event.target.value);
+  
 }
+
 );
 
 

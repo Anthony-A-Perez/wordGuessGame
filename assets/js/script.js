@@ -34,7 +34,7 @@ const questions = [
     },
     {
         questionText: "The JavaScript programming language was first created by Brendan Eich.",
-        value: 1
+        value: 0
     },
     {
         questionText: "Methods are a commonly used data type.",
@@ -50,6 +50,8 @@ const questions = [
     }
 ];
 
+
+
 // get referenced elements
 
 var trueButton = document.getElementById("true-button");
@@ -58,7 +60,8 @@ var answerButton = document.querySelector(".answer-button");
 var statement = document.querySelector(".statement");
 var result = document.querySelector(".result");
 var startButton = document.querySelector(".start-button");
-
+var statementVal = document.getElementById("1");
+var stateValId = statementVal.id
 // +Functions
 
 // create function to get next statement
@@ -67,9 +70,25 @@ function getStatement() {
     var totalQuestions = questions.length;
     randomIndex = Math.floor(rand * totalQuestions);
     var randomQuestion = questions[randomIndex].questionText;
+    var randomValue = questions[randomIndex].value;
     statement.innerText = randomQuestion;
+    stateValId = randomValue
+      result.innerHTML = " "
+    // console.log();
+    // console.log(randomValue);
+   console.log(stateValId);
+ };
+// function getValue() {
+//     var rand = Math.random();
+//     var totalQuestions = questions.length;
+//     randomIndex = Math.floor(rand * totalQuestions);
+//     var randomValue = questions[randomIndex].value;
+//     // statement.innerText = randomValue;
+//     console.log(randomValue);
    
-};
+// };
+
+
 
 const winText = "Correct, be wary of success.";
 const loseText = "Incorrect, you're perfectly flawed.";
@@ -84,13 +103,22 @@ const loseText = "Incorrect, you're perfectly flawed.";
 
 answerButton.addEventListener("click", event => {
     event.preventDefault();
-    if (event.target.value == 0) {
+    
+    if (event.target.value == stateValId) {
+       
         result.innerHTML = winText;
+        result.style.color = "#00FF00";
+    
     } else {
-        result.innerHTML = loseText;
+       
+        result.innerHTML = loseText; 
+        result.style.color = "#FF0000";
+
+        
     }
-    console.log(event.target.value);
   
+//     console.log(event.target.value);
+//   console.log(randomQuestion);
 }
 
 );
@@ -105,7 +133,7 @@ answerButton.addEventListener("click", event => {
 
 startButton.addEventListener("click", getStatement);
 
-
+// getValue()
 
 
 

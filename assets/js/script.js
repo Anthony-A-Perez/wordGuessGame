@@ -1,8 +1,5 @@
 
 
-
-
-
 // statements to be evaluated, T or F
 
 const questions = [
@@ -50,93 +47,89 @@ const questions = [
     }
 ];
 
-
-
 // get referenced elements
 
-var trueButton = document.getElementById("true-button");
-var falseButton = document.getElementById("false-button");
-var answerButton = document.querySelector(".answer-button");
-var statement = document.querySelector(".statement");
-var result = document.querySelector(".result");
-var startButton = document.querySelector(".start-button");
-var statementVal = document.getElementById("1");
-var stateValId = statementVal.id
+let trueButton = document.getElementById("true-button");
+let falseButton = document.getElementById("false-button");
+let answerButton = document.querySelector(".answer-button");
+let statement = document.querySelector(".statement");
+let result = document.querySelector(".result");
+let startButton = document.querySelector(".start-button");
+let statementVal = document.getElementById("1");
+let stateValId = statementVal.id
 // +Functions
 
 // create function to get next statement
 function getStatement() {
-    var rand = Math.random();
-    var totalQuestions = questions.length;
-    randomIndex = Math.floor(rand * totalQuestions);
-    var randomQuestion = questions[randomIndex].questionText;
-    var randomValue = questions[randomIndex].value;
-    statement.innerText = randomQuestion;
-    stateValId = randomValue
-      result.innerHTML = " "
-    // console.log();
+ 
+    let theStatement = questions.pop()
+    statement.innerText = theStatement.questionText;
+    stateValId = theStatement.value;
+    result.innerHTML = " "
+    if (questions.length === 0) {
+    setTimeout(() => {
+        alert("GAMEOVER")}, '5000');
+
+    };
+    //console.log(questions.pop());
+    console.log(questions);
     // console.log(randomValue);
-   console.log(stateValId);
- };
-// function getValue() {
-//     var rand = Math.random();
-//     var totalQuestions = questions.length;
-//     randomIndex = Math.floor(rand * totalQuestions);
-//     var randomValue = questions[randomIndex].value;
-//     // statement.innerText = randomValue;
-//     console.log(randomValue);
-   
-// };
+    // console.log(randomQuestion);
+    // console.log(randomValue);
+    console.log(stateValId);
 
-
-
+}
 const winText = "Correct, be wary of success.";
 const loseText = "Incorrect, you're perfectly flawed.";
-
-
-
-
-
-
 
 // compares value of statement with vale of click event
 
 answerButton.addEventListener("click", event => {
-    event.preventDefault();
-    
+    event.preventDefault()
+    let scoreBoard = document.getElementById('score')
+
     if (event.target.value == stateValId) {
-       
+
         result.innerHTML = winText;
         result.style.color = "#00FF00";
-    
-    } else {
-       
-        result.innerHTML = loseText; 
-        result.style.color = "#FF0000";
+        scoreBoard.value++
 
-        
+    } else {
+
+        result.innerHTML = loseText;
+        result.style.color = "#FF0000";
+        scoreBoard.value--
+        seconds -= 5000
     }
-  
-//     console.log(event.target.value);
-//   console.log(randomQuestion);
+
 }
 
 );
 
-
-
-
-
 //event listener calls the getStatement function, randomly populating the 'statement' <div>
 
+let seconds = 1000 * 60; //1000 = 1 second in JS
+let time;
+startButton.addEventListener('click', timer)
 
+function timer() {
+    startButton.style.display = 'none';
+    if (seconds == 60000)
+        time = setInterval(timer, 1000)
+    seconds -= 1000;
+    document.getElementById("time").innerHTML = '00:' + seconds / 1000;
+    if (seconds < -1) {
+        clearInterval(time);
+        alert("GAMEOVER");
+        document.getElementById("time").innerHTML = " ";
+        location.reload()
+    }
+
+}
+document.getElementById("time").innerHTML = "00:" + seconds / 1000;
 
 startButton.addEventListener("click", getStatement);
 
-// getValue()
-
-
-
-
-
+trueButton.addEventListener('click', getStatement);
+falseButton.addEventListener('click', getStatement);
 

@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
-  <title>Document title</title>
+  <title>Timed Quiz</title>
 
-  <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/index.css" />
 
 </head>
 
@@ -18,14 +18,9 @@
     <h1>
       Timed Quiz
     </h1>
-    <div class="save-score">
-      <h2>Saved Scores</h2>
-      <ul class="ss-list">
+ 
 
-      </ul>
-    </div>
-
-
+<div class="card">
     <div>
       <button class="start-button">Start Quiz</button>
       <p>Timer: <span id="time"></span></p>
@@ -39,14 +34,21 @@
     <!--True/False buttons have value for comparison-->
 
     <div class="answer-button">
-      <button value="0" id="true-button">True</button>
-      <button value="1" id="false-button">False</button>
+      <button value="1" id="true-button">True</button>
+      <button value="2" id="false-button">False</button>
     </div>
     <!--Result display-->
     <div>
       <p class="result"></p>
+    </div>  
+    
     </div>
+</div>
+ <div class="save-score">
+      <h2>Saved Scores:</h2>
+      <ul id="ss-list">
 
+      </ul>
 
   </div>
 </body>

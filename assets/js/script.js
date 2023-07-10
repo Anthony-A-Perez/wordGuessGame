@@ -6,44 +6,44 @@ const questions = [
 
     {
         questionText: "You can use a text string as a literal value or assign it to a variable.",
-        value: 0
+        value: 1
     },
 
     {
         questionText: "Assignment operators are used to perform mathematical calculations, such as addition, subtraction, multiplication, and division.",
-        value: 1
+        value: 2
     },
     {
         questionText: "The statements inside an 'if' statement are contained by the same curly braces used to contain the statements in a function.",
-        value: 0
+        value: 1
     },
     {
         questionText: "JavaScript arrays are zero-indexed. The first element of an array is indexed at 0, and the last element is at the index value equal to the value of the array's length property.",
-        value: 0
+        value: 1
     },
     {
         questionText: "Learning JavaScript is fun?",
-        value: 0
+        value: 1
     },
     {
         questionText: "String values must be enclosed within parenthesis when being assigned to variables.",
-        value: 0
+        value: 1
     },
     {
         questionText: "The JavaScript programming language was first created by Brendan Eich.",
-        value: 0
+        value: 1
     },
     {
         questionText: "Methods are a commonly used data type.",
-        value: 1
+        value: 2
     },
     {
         questionText: "JavaScript is the same as Java.",
-        value: 1
+        value: 2
     },
     {
         questionText: "We put JavaScript inside the <js> HTML element.",
-        value: 1
+        value: 2
     }
 ];
 
@@ -66,16 +66,7 @@ function getStatement() {
     statement.innerText = theStatement.questionText;
     stateValId = theStatement.value;
     result.innerHTML = " "
-    if (questions.length === 0) {
-    setTimeout(() => {
-        alert("GAMEOVER")}, '5000');
-
-    };
-    //console.log(questions.pop());
-    console.log(questions);
-    // console.log(randomValue);
-    // console.log(randomQuestion);
-    // console.log(randomValue);
+   
     console.log(stateValId);
 
 }
@@ -88,7 +79,7 @@ answerButton.addEventListener("click", event => {
     event.preventDefault()
     let scoreBoard = document.getElementById('score')
 
-    if (event.target.value == stateValId) {
+    if (parseInt(event.target.value) == stateValId) {
 
         result.innerHTML = winText;
         result.style.color = "#00FF00";
@@ -99,7 +90,7 @@ answerButton.addEventListener("click", event => {
         result.innerHTML = loseText;
         result.style.color = "#FF0000";
         scoreBoard.value--
-        seconds -= 5000
+        seconds -= 15000
     }
 
 }
@@ -114,22 +105,56 @@ startButton.addEventListener('click', timer)
 
 function timer() {
     startButton.style.display = 'none';
-    if (seconds == 60000)
+    if (seconds >= 60000)
         time = setInterval(timer, 1000)
     seconds -= 1000;
     document.getElementById("time").innerHTML = '00:' + seconds / 1000;
-    if (seconds < -1) {
+    if (seconds < -1 || questions.length === 0) {
         clearInterval(time);
         alert("GAMEOVER");
-        document.getElementById("time").innerHTML = " ";
-        location.reload()
+        document.getElementById("time").innerHTML = "";
+        
+        renderScores()
+        location.reload();
     }
-
 }
+
 document.getElementById("time").innerHTML = "00:" + seconds / 1000;
 
 startButton.addEventListener("click", getStatement);
 
 trueButton.addEventListener('click', getStatement);
 falseButton.addEventListener('click', getStatement);
+
+// Retrieve scores from localStorage if available
+let scores = JSON.parse(localStorage.getItem("scores")) || [];
+
+function renderScores() {
+  const scoreList = document.getElementById("ss-list");
+  scoreList.innerHTML = "";
+
+  scores.forEach((score, index) => {
+    const li = document.createElement("li");
+    li.textContent = `Score ${index + 1}: ${score}`;
+    scoreList.appendChild(li);
+  });
+
+  // Get the score input value
+  const scoreInput = document.getElementById("score");
+  const scoreValue = scoreInput.value;
+
+  // Append the current score to the list
+  const currentScore = document.createElement("li");
+  currentScore.textContent = `Current Score: ${scoreValue}`;
+  scoreList.appendChild(currentScore);
+
+  // Store scores in localStorage
+  localStorage.setItem("scores", JSON.stringify(scores));
+}
+
+
+
+  
+
+
 
